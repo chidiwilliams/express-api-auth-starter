@@ -1,0 +1,32 @@
+{
+  "name": "express-api-auth-starter",
+  "version": "1.0.0",
+  "description": "Express API starter app with authentication",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chidiwilliams/express-api-auth-starter.git"
+  },
+  "keywords": [
+    "express",
+    "api",
+    "starter",
+    "app"
+  ],
+  "author": "Chidi Williams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chidiwilliams/express-api-auth-starter/issues"
+  },
+  "homepage": "https://github.com/chidiwilliams/express-api-auth-starter#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.1.5"
+  }
+}
