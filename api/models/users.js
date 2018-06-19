@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 var userSchema = new mongoose.Schema({
   email: {
@@ -20,9 +21,22 @@ userSchema.methods.setPassword = function (password) {
   this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
 }
 
-userSchema.methods.validPassword = function(password) {
+userSchema.methods.validPassword = function (password) {
   let hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
   return this.hash === hash;
+}
+
+userSchema.methods.generateJWT = function () {
+  const expiry = new Date();
+  expiry.setDate(expiry.getDate + 7)
+
+  // TODO: Set MY_SECRET to correct secret string. Save in .env file
+  return jwt.sign({
+    _id: this._id,
+    email: this.email,
+    name: this.name,
+    exp: parseInt(expiry.getTime() / 1000),
+  }, 'MY SECRET')
 }
 
 module.exports = mongoose.model('User', userSchema);
