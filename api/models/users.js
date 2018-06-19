@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
-var userSchema = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
@@ -28,7 +28,8 @@ userSchema.methods.validPassword = function (password) {
 
 userSchema.methods.generateJWT = function () {
   const expiry = new Date();
-  expiry.setDate(expiry.getDate + 7)
+  // TODO: Set token expiration time in config file
+  expiry.setDate(expiry.getDate + 7);
 
   // TODO: Set MY_SECRET to correct secret string. Save in .env file
   return jwt.sign({
