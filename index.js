@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const passport = require('passport');
@@ -11,7 +10,7 @@ const passport = require('passport');
 const app = express();
 const router = express.Router();
 
-mongoose.connect("mongodb://localhost:27017/blog");
+require('./api/models/db');
 require('./api/config/passport');
 
 app.use(cors());
@@ -30,6 +29,7 @@ router.get("/", (req, res) =>
 
 app.use("/", router);
 
-app.listen(3000, () => {
-  console.log("Server is running");
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
 });
