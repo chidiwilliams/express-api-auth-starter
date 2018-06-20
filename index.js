@@ -3,10 +3,11 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const dotenv = require('dotenv');
-// var path = require('path');
-// var favicon = require('serve-favicon');
-// var logger = require('morgan');
-// var cookieParser = require('cookie-parser');
+const morgan = require('morgan');
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 
 const app = express();
 const router = express.Router();
@@ -14,6 +15,7 @@ const router = express.Router();
 require('./api/models/db');
 require('./api/config/passport');
 
+app.use(morgan('combined'));
 app.use(cors());
 app.use(
   bodyParser.urlencoded({

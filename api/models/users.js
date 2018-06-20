@@ -36,6 +36,7 @@ userSchema.methods.generateJWT = function() {
   expiry.setDate(expiry.getDate + 7);
 
   // TODO: Set MY_SECRET to correct secret string. Save in .env file
+  const secret = process.env.JWT_SECRET;
   return jwt.sign(
     {
       _id: this._id,
@@ -43,7 +44,7 @@ userSchema.methods.generateJWT = function() {
       name: this.name,
       exp: parseInt(expiry.getTime() / 1000)
     },
-    'MY_SECRET'
+    secret
   );
 };
 
