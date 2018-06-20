@@ -1,17 +1,15 @@
+const dotenv = require('dotenv');
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const dotenv = require('dotenv');
 const morgan = require('morgan');
-const routes = require('./api/routes/index');
-
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').load();
-}
-
 require('./api/models/db');
 require('./api/config/passport');
+const routes = require('./api/routes/api');
 
 const app = express();
 
@@ -22,6 +20,7 @@ app.use(
     extended: true,
   })
 );
+app.use(bodyParser.json());
 app.use(passport.initialize());
 
 // [SH] Use the API routes when path starts with /api
@@ -49,7 +48,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.json({
       message: err.message,
-      error: app.get('env') === 'development' ? {} : err,
+      error: app.get('env') === 'development' ? err : {},
     });
   }
 });
