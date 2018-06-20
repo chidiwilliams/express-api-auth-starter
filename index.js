@@ -1,7 +1,8 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const passport = require('passport');
+const dotenv = require('dotenv');
 // var path = require('path');
 // var favicon = require('serve-favicon');
 // var logger = require('morgan');
@@ -21,13 +22,13 @@ app.use(
 );
 app.use(passport.initialize());
 
-router.get("/", (req, res) =>
+router.get('/', (req, res) =>
   res.status(200).json({
     success: true
   })
 );
 
-app.use("/", router);
+app.use('/', router);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
